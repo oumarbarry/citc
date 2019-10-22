@@ -1,0 +1,34 @@
+{% extends "app/_base.html" %}
+{% load static %}
+
+{% block title %} {{ add_detail_f.title }}} {% endblock title %}
+
+{% block active %}
+	<li><a href="{% url 'app:home' %}">Accueil</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CITC</a>
+        <ul class="dropdown-menu">
+          	<li><a href="cisco">Cisco</a></li>
+            <li><a href="microsoft">Microsoft</a></li>
+            <li><a href="pearsonvue">Pearson Vue</a></li>
+        </ul>
+    </li>
+    <li><a href="{% url 'app:formations' %}">Nos Formations</a></li>
+    <li><a href="{% url 'app:events' %}">Evenements</a></li>
+    <li><a href="{% url 'app:news' %}">NEWS</a></li>
+{% endblock %}
+
+{% block content %}
+	<div class="single_content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 custom_right">
+					<div class="single_content_left">
+						{{ add_detail_f.head|safe }}
+						{{ add_detail_f.body_tr|safe }}
+					</div><!--end single content left-->
+				</div><!--end custom_right-->
+			</div><!--end row-->
+		</div><!--end container-->
+	</div>
+{% endblock %}

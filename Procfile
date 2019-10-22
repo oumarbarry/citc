@@ -1,0 +1,1 @@
+web: gunicorn cisco.wsgi --log-file

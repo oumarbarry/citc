@@ -1,0 +1,34 @@
+{% extends "app/_base.html" %}
+{% load static %}
+
+{% block title %}Error 404{% endblock title %}
+
+{% block active %}
+  <li><a href="{% url 'app:home' %}">Accueil</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CITC</a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'app:cisco' %}">Cisco</a></li>
+          <li><a href="{% url 'app:microsoft' %}">Microsoft</a></li>
+          <li><a href="{% url 'app:pearsonvue' %}">Pearson Vue</a></li>
+        </ul> 
+    </li>
+    <li><a href="{% url 'app:formations' %}">Nos Formations</a></li>
+    <li><a href="{% url 'app:events' %}">Evenements</a></li>
+    <li><a href="{% url 'app:news' %}">NEWS</a></li>
+{% endblock %}
+
+{% block content %}
+  <!-- ERROR CONTENT -->
+  <div class="mainContent error-content clearfix">
+    <div class="container">
+      <div class="error-content-top">
+        <h1>404</h1>
+        <h3>Error</h3>
+      </div>
+      <h3>Oops!</h3>
+      <p>Page Introuvable</p>
+      <p><a href="{% url 'app:home' %}">Revenez à l'accueil</a> ou <a href="#">Contactez nous</a> à propos du problème</p>
+    </div>
+  </div>
+{% endblock %}

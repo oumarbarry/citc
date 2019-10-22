@@ -1,0 +1,72 @@
+{% extends "app/_base.html" %}
+{% load static %}
+
+{% block title %} News {% endblock title %}
+
+{% block active %}
+	<li><a href="{% url 'app:home' %}">Accueil</a></li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CITC</a>
+        <ul class="dropdown-menu">
+            <li><a href="cisco">Cisco</a></li>
+            <li><a href="microsoft">Microsoft</a></li>
+            <li><a href="pearsonvue">Pearson Vue</a></li>
+        </ul>
+    </li>
+    <li><a href="{% url 'app:formations' %}">Nos Formations</a></li>
+    <li><a href="{% url 'app:events' %}">Evenements</a></li>
+    <li class="active"><a href="{% url 'app:news' %}">NEWS</a></li>
+{% endblock %}
+
+{% block content %}
+  <div class="post_section clearfix">
+    <div class="container">
+      <div class="row">
+        {% for news in all_news %}
+          <div class="{{ mod_grille.content }} post_left">
+            <div class="post_left_section post_left_border">
+              <div class="post">
+                <div class="post_thumb">
+                  <img src="{% static 'app/img/news/' %}{{news.img}}" alt="">
+                  <!--news-post-01.jpg-->
+                </div><!--end post thumb-->
+                <div class="meta">
+                  <span class="date">Posté le : <a href="#">{{ news.date_pub|date:"j F Y" }}</a></span>
+                  <span class="author">Par: <a href="#">{{ news.publisher }}</a></span>
+                </div><!--end meta-->
+                <h1><a href="{% url 'app:news' %}/{{ news.id_news }}">{{ news.title }}</a></h1>
+                <div class="post_desc">
+                  {{ news.resume_news|safe }}
+                </div><!--end post desc-->
+                <div class="post_bottom">
+                  <a href="{% url 'app:news' %}/{{ news.id_news }}" class="btn btn-default commonBtn">En savoir plus</a>
+                </div><!--end post bottom-->
+              </div><!--end post-->
+            </div><!--end post left section-->
+          </div><!--end post_left-->
+        {% endfor %}
+      </div>
+      <div align="center">
+        <ul class="pagination">
+          {% if all_news.has_previous %}
+            <li>
+              <a aria-label="Previous" href="?page={{ all_news.previous_page_number }}">
+              <span aria-hidden="true">Précedent</span>
+              </a>
+            </li>
+          {% endif %}
+          <li class="active"><a href="?page={{ all_news.number }}">{{ all_news.number }}</a></li>
+          <li><a>sur</a></li>
+          <li><a href="?page={{ all_news.paginator.num_pages }}">{{all_news.paginator.num_pages }}</a></li>
+          {% if all_news.has_next %}
+            <li>
+              <a aria-label="Next" href="?page={{ all_news.next_page_number }}">
+              <span aria-hidden="true">Suivant</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

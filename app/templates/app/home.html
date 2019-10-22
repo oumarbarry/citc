@@ -1,0 +1,97 @@
+{% extends "app/_base.html" %}
+{% load static %}
+
+{% block content %}
+  {% autoescape off %}
+    {{ mod_banner.banner_content }}
+    {{ mod_sec_banner.banner_content }}
+  {% endautoescape %}
+  
+  <div class="mainContent clearfix">
+    <div class="container">
+      <div class="row clearfix">
+        <div class="col-sm-7 col-xs-12">
+          <div class="post_right_inner">
+            <div class="related_post_sec">
+              <div class="list_block">
+                <h3>Dernières News</h3>
+                <ul>
+                  {% for news in latest_news %}
+                    <li>
+                      <span class="rel_thumb">
+                        <img src="{% static 'app/img/news/' %}{{news.thumb}}" alt="">
+                      </span><!--end rel_thumb.png-->
+                      <div class="rel_right">
+                        <a href="single-post-right-sidebar.html"><h3>{{ news.title }}</h3></a>
+                        <span class="date">Posté le : <a href="#">{{ news.date_pub|date:"j F Y" }}</a></span>
+                      </div><!--end rel right-->
+                    </li>
+                  {% endfor %}
+                </ul>
+                <a href="{% url 'app:news' %}" class="more_post">Plus de news</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5 col-xs-12">
+          <div class="list_block related_post_sec">
+            <div class="upcoming_events">
+              <h3>Evenements à venir</h3>
+              <ul>
+                {% for event in latest_events %}
+                  <li class="related_post_sec single_post">
+                    <span class="date-wrapper">
+                      <span class="date"><span>{{ event.date_time_event|date:"d" }}</span>{{ event.date_time_event|date:"F" }}</span>
+                    </span>
+                    <div class="rel_right">
+                      <h4><a href="{% url 'app:events' %}/{{ event.id_events }}">{{ event.title }}</a></h4>
+                      <div class="meta">
+                        <span class="place"><i class="fa fa-map-marker"></i>{{ event.place_event }}</span>
+                        <span class="event-time"><i class="fa fa-clock-o"></i>{{ event.date_time_event|date:"H:i" }}</span>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+              <a href="{% url 'app:events' %}" class="more_post">Plus d'evenements</a>
+            </div>
+          </div><!-- end list_block -->
+        </div><!-- col-sm-4 col-xs-12 -->
+      </div>
+    </div><!-- container -->
+  </div><!-- mainContent -->
+  
+  <div class="clearfix padding success-section">
+    <div class="container">
+      <div class="owl-carousel success-inner">
+        {% for temoignage in latest_temoignages %}
+          <div class="slide">
+            <div class="row">
+              <div class="col-sm-12 col-xs-12 text-center">
+                <div class="slide-info">
+                  <div class="carousal_content" style="text-align: justify;">
+                    {{ temoignage.content|safe }}
+                  </div>
+                  <div class="carousal_bottom">
+                    <div class="thumb">
+                      <img src="{% static 'app/img/about/' %}{{ temoignage.img }}" alt="Image" draggable="false">
+                    </div>
+                    <div class="thumb_title">
+                      <span class="author_name">{{ temoignage.name }}</span>
+                      <span class="author_designation">
+                        Etudiant(e) en : <a href="#"> {{ temoignage.degree }}</a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>         
+          </div>
+        {% endfor %}
+      </div>
+      <a href="#" class="btn btn-default btn-block commonBtn">Lire plus de temoignages</a>
+    </div>
+  </div>
+  
+  {{ mod_brand_banner.banner_content|safe }}
+{% endblock %}
